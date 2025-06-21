@@ -1,34 +1,29 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import RedirectResponse, PlainTextResponse
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 import asyncio
 import nest_asyncio
 import uvicorn
 
+# ✅ Telegram Bot Token
 BOT_TOKEN = "8067349631:AAFN-hy9zRK1kcd7v1n0B5DuPnq0j19TqDQ"
-API_BASE = "https://web-production-ccaed.up.railway.app/live"
 
 app = FastAPI()
 
 @app.get("/")
 async def home():
-    return PlainTextResponse("✅ PW Redirect API is live (FastAPI version)")
-
-@app.get("/live")
-async def redirector(q: str = None):
-    if q:
-        return RedirectResponse(url=q)
-    return PlainTextResponse("❌ Invalid URL", status_code=400)
+    return PlainTextResponse("✅ PW Direct Link Bot is live (No redirect)")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("👋 Send me a PW .mp4 lecture link and I'll return a 1DM-compatible download link.")
+    await update.message.reply_text(
+        "👋 Send me a PW .mp4 lecture link and I'll return it directly — ready for 1DM download."
+    )
 
 async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
     if "pw.live" in text and ".mp4" in text:
-        final_link = f"{API_BASE}?q={text}"
-        await update.message.reply_text(f"✅ Paste this in 1DM:\n{final_link}")
+        await update.message.reply_text(f"✅ Paste this in 1DM:\n{text}")
     else:
         await update.message.reply_text("❌ Please send a valid PW .mp4 link.")
 
