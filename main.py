@@ -6,7 +6,7 @@ import asyncio
 import nest_asyncio
 import uvicorn
 
-BOT_TOKEN = "paste-your-telegram-bot-token-here"
+BOT_TOKEN = "8067349631:AAFN-hy9zRK1kcd7v1n0B5DuPnq0j19TqDQ"
 API_BASE = "https://web-production-ccaed.up.railway.app/live"
 
 app = FastAPI()
